@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Users</h2>
+
+<div class="feed">
+    {% for item in user_data %}
+    <div class="card">
+
+        <!-- Image from user's post -->
+        <img src="https://picsum.photos/300/200?random={{ item.image_id }}">
+
+        <h3>{{ item.user.name }}</h3>
+        <p>{{ item.user.email }}</p>
+
+        <a href="/user/{{ item.user.id }}">View Posts</a>
+
+        <!-- ✅ ADD THIS -->
+        <a href="/create/{{ item.user.id }}" class="create-btn">➕ Add Post</a>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
