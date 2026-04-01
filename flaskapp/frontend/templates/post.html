@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="post">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.body }}</p>
+</div>
+
+<h3>💬 Comments</h3>
+
+<div id="comments">
+    {% for comment in comments %}
+    <div class="comment">
+        <b>{{ comment.name }}</b>
+        <p>{{ comment.body }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h3>Add Comment</h3>
+
+<form id="commentForm">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="body" placeholder="Write comment..." required></textarea>
+    <button type="submit">Post Comment</button>
+</form>
+
+<script>
+document.getElementById("commentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const body = document.getElementById("body").value;
+
+    const newComment = document.createElement("div");
+    newComment.className = "comment";
+    newComment.innerHTML = `
+        <b>${name}</b>
+        <p>${body}</p>
+    `;
+
+    document.getElementById("comments").prepend(newComment);
+
+    // Clear form
+    document.getElementById("name").value = "";
+    document.getElementById("body").value = "";
+});
+</script>
+
+{% endblock %}
